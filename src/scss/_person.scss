@@ -1,0 +1,357 @@
+$headsize: 200px;
+$headjawheight:$headsize / 4;
+$torsowidth:$headsize;
+$torsoheight:$torsowidth;
+$torsoneckheight:$headsize / 5;
+$torsohipheight:$torsoheight /4;
+$legheight:$torsoheight * 1.25;
+$legwidth:$legheight / 2;
+$leghipheight:$legheight * .10;
+$armlength: $torsoheight;
+$armwidth:$armlength / 2;
+$armshoulderpadding: $armlength / 5;
+
+$personheight:$headsize + $torsoheight + $legheight;
+$personwidth:$torsowidth + $armwidth *4;
+
+@mixin monster($class-name) {
+  #{".m-" + $class-name} {
+    &.person-head {
+      background-image: #{"url('../img/monsters/" + $class-name +"/head.png')"};
+    }
+    &.person-torso {
+      background-image: #{"url('../img/monsters/" + $class-name +"/torso.png')"};
+    }
+    &.person-arm-right{
+      background-image: #{"url('../img/monsters/" + $class-name +"/arm_right.png')"};
+    }
+    &.person-arm-left {
+      background-image: #{"url('../img/monsters/" + $class-name +"/arm_left.png')"};
+    }
+    &.person-leg-right {
+      background-image:#{"url('../img/monsters/" + $class-name +"/leg_right.png')"};
+    }
+    &.person-leg-left {
+      background-image:#{"url('../img/monsters/" + $class-name +"/leg_left.png')"};
+    }
+  }
+}
+
+
+
+@keyframes headwobble {
+  0%{
+  
+    transform: rotate(-50deg);
+  }
+ 50%{
+
+    transform: rotate(50deg);
+  }
+   100%{
+  
+    transform: rotate(-50deg);
+  }
+}
+
+@keyframes armwave {
+  0%{
+  
+    transform: rotate(155deg);
+  }
+ 50%{
+
+    transform: rotate(211deg);
+  }
+   100%{
+  
+    transform: rotate(155deg);
+  }
+}
+@keyframes legjigleft{
+  0%{
+  
+    transform: rotate(0deg);
+  }
+ 50%{
+
+    transform: rotate(45deg);
+  }
+   100%{
+  
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes legjigright{
+  0%{
+  
+    transform: rotate(0deg);
+  }
+ 50%{
+
+    transform: rotate(-45deg);
+  }
+   100%{
+  
+    transform: rotate(0deg);
+  }
+}
+
+
+@keyframes armup {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(180deg);
+  }
+}
+
+
+@keyframes bounce {
+  0%{
+    margin-bottom: 0;
+  }
+  50% {
+    margin-bottom: 200px;
+  }
+  100% {
+    margin-bottom: 0;
+  }
+}
+
+
+
+
+
+@-moz-keyframes dance {
+  0%, 10%, 20% {
+    transform: rotateZ(10deg);
+  }
+  5%, 15%, 25% {
+    transform: rotateZ(-10deg);
+  }
+  35%, 60%, 100% {
+    transform: scale(1) rotateZ(0deg);
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+  40% {
+    transform: scale(1.3);
+    box-shadow: inset 0 0 0 0;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+  }
+}
+@-webkit-keyframes dance {
+  0%, 10%, 20% {
+    transform: rotateZ(10deg);
+  }
+  5%, 15%, 25% {
+    transform: rotateZ(-10deg);
+  }
+  35%, 60%, 100% {
+    transform: scale(1) rotateZ(0deg);
+    box-shadow: inset 0 0 0 0 transparent;
+  }
+  40% {
+    transform: scale(1.3);
+    box-shadow: inset 0 0 0 0;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+  }
+}
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+  }
+  100% {
+    -webkit-transform: scale(1.05);
+  }
+}
+@-moz-keyframes pulse {
+  0% {
+    -moz-transform: scale(1);
+  }
+  100% {
+    -moz-transform: scale(1.05);
+  }
+}
+@-webkit-keyframes pulseSlow {
+  0% {
+    -webkit-transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(0.85);
+    opacity: 0.5;
+  }
+}
+
+
+
+
+
+.person{
+ 
+  
+  position:absolute;
+  height:$personheight;
+  width: $personwidth;
+  z-index: 1;
+  bottom:0;
+  left:50%;
+  transform: translateX(-50%);
+
+}
+
+.person-head {
+  height:$headsize;
+  width:$headsize;
+  border-radius:$headsize;
+  background-image:url('../img/monsters/pink_demon/head.png');
+  background-size: $headsize;
+  background-repeat:no-repeat;
+  margin: 0 auto;
+  margin-bottom: ($headjawheight + $torsoneckheight/2) * -1;
+  transform-origin: center #{$headsize - $headjawheight };
+  animation-name: pulse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  z-index: 3;
+  position:relative;
+
+}
+
+.person-torso{
+  width:$torsowidth;
+  height:$torsoheight;
+  background-image:url('../img/monsters/pink_demon/torso.png');
+  background-size:$torsowidth auto;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  z-index: 2;
+  position:relative;
+  
+
+
+}
+
+.person-leg-left, .person-leg-right{
+  height:$legheight;
+  width:$legwidth;
+  background-size: $legwidth auto;
+  background-repeat: no-repeat;
+  position:absolute;
+  top:$headsize + $torsoheight - $torsohipheight - $leghipheight - ($headjawheight + $torsoneckheight/2);
+  transform-origin: center $leghipheight;
+  z-index: 0;
+  animation: dance 1 2s linear;
+
+  
+}
+
+.person-leg-left {
+  
+  background-image: url('../img/monsters/pink_demon/leg_left.png');
+  left:$personwidth / 2 - $legwidth + $legwidth / 4;
+
+}
+
+
+.person-leg-right{
+  background-image: url('../img/monsters/pink_demon/leg_right.png');
+  left:$personwidth / 2 - $legwidth / 4;
+ 
+}
+
+.person-arm-left, .person-arm-right {
+  height:$armlength;
+  width:$armwidth;
+  background-size: $armwidth auto;
+  position:absolute;
+  top: $headsize - $armshoulderpadding;
+  z-index: 4;
+  transform-origin: center $armshoulderpadding;
+
+}
+
+.person-arm-left{
+  background-image:url('../img/monsters/pink_demon/arm_left.png');
+  left: ($personwidth / 2) - ($torsowidth / 2) - $armwidth / 3;
+  //transform: translate(-$torsowidth / 2 - $armwidth / 2, $torsoneckheight);
+}
+
+.person-arm-right{
+  background-image:url('../img/monsters/pink_demon/arm_right.png');
+  //transform: translate($torsowidth / 2 - $armwidth / 2, $torsoneckheight);
+  left: ($personwidth / 2) + ($torsowidth / 2) - ($armwidth * 2 / 3);
+}
+
+.dance-mosh {
+  .person-arm-right, .person-arm-left {
+    animation: armwave 1s infinite;
+  }
+  .person-leg-left {
+    animation: legjigleft 1s infinite;
+
+  }
+  .person-leg-right{
+    animation: legjigright 1s infinite;
+    animation-delay: .5s;
+  }
+}
+.raisearms {
+  .person-arm-right, .person-arm-left {
+    animation: armup 5s 1;
+  }
+}
+
+/*.dance {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-animation: dance 1 2s linear;
+  -moz-animation: dance 1 2s linear;
+  animation: dance 1 2s linear;
+}
+.pulse {
+  -webkit-animation: pulse infinite alternate linear 0.5s;
+  -moz-animation: pulse infinite alternate linear 0.5s;
+  animation: pulse infinite alternate linear 0.5s;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.pulse-slow {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-animation: pulseSlow infinite alternate 1s ease-in-out;
+  -moz-animation: pulseSlow infinite alternate 1s ease-in-out;
+  animation: pulseSlow infinite alternate 1s ease-in-out;
+}
+.jump-bounce {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-animation: jumpBounce 1 1.5s ease-in;
+  -moz-animation: jumpBounce 1 1.5s ease-in;
+  -ms-animation: jumpBounce 1 1.5s ease-in;
+  -o-animation: jumpBounce 1 1.5s ease-in;
+  animation: jumpBounce 1 1.5s ease-in;
+}
+.jamp {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-animation: jamp 1s linear;
+  -moz-animation: jamp 1s linear;
+  animation: jamp 1s linear;
+}*/
+
+@include monster('skeleton');
+@include monster('fuzzy_pink');
+@include monster('purple_hairy');
+@include monster('swamp');
+@include monster('freddy');
+@include monster('pink_demon');
+@include monster('bunbun');
+@include monster('red_guy');
+@include monster('spider_woman');
+@include monster('threeeyedcat');
+

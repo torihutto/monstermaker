@@ -1,0 +1,604 @@
+@import url("https://fontlibrary.org/face/glacial-indifference");
+@import url("https://fonts.googleapis.com/css?family=Pacifico");
+@import url("https://fonts.googleapis.com/css?family=Denk+One");
+@keyframes headwobble {
+  0% {
+    transform: rotate(-50deg); }
+  50% {
+    transform: rotate(50deg); }
+  100% {
+    transform: rotate(-50deg); } }
+@keyframes armwave {
+  0% {
+    transform: rotate(155deg); }
+  50% {
+    transform: rotate(211deg); }
+  100% {
+    transform: rotate(155deg); } }
+@keyframes legjigleft {
+  0% {
+    transform: rotate(0deg); }
+  50% {
+    transform: rotate(45deg); }
+  100% {
+    transform: rotate(0deg); } }
+@keyframes legjigright {
+  0% {
+    transform: rotate(0deg); }
+  50% {
+    transform: rotate(-45deg); }
+  100% {
+    transform: rotate(0deg); } }
+@keyframes armup {
+  0% {
+    transform: rotate(0deg); }
+  100% {
+    transform: rotate(180deg); } }
+@keyframes bounce {
+  0% {
+    margin-bottom: 0; }
+  50% {
+    margin-bottom: 200px; }
+  100% {
+    margin-bottom: 0; } }
+@-moz-keyframes dance {
+  0%, 10%, 20% {
+    transform: rotateZ(10deg); }
+  5%, 15%, 25% {
+    transform: rotateZ(-10deg); }
+  35%, 60%, 100% {
+    transform: scale(1) rotateZ(0deg);
+    box-shadow: inset 0 0 0 0 transparent; }
+  40% {
+    transform: scale(1.3);
+    box-shadow: inset 0 0 0 0;
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1); } }
+@-webkit-keyframes dance {
+  0%, 10%, 20% {
+    transform: rotateZ(10deg); }
+  5%, 15%, 25% {
+    transform: rotateZ(-10deg); }
+  35%, 60%, 100% {
+    transform: scale(1) rotateZ(0deg);
+    box-shadow: inset 0 0 0 0 transparent; }
+  40% {
+    transform: scale(1.3);
+    box-shadow: inset 0 0 0 0;
+    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1); } }
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1); }
+  100% {
+    -webkit-transform: scale(1.05); } }
+@-moz-keyframes pulse {
+  0% {
+    -moz-transform: scale(1); }
+  100% {
+    -moz-transform: scale(1.05); } }
+@-webkit-keyframes pulseSlow {
+  0% {
+    -webkit-transform: scale(1);
+    opacity: 1; }
+  100% {
+    -webkit-transform: scale(0.85);
+    opacity: 0.5; } }
+.person {
+  position: absolute;
+  height: 650px;
+  width: 600px;
+  z-index: 1;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%); }
+
+.person-head {
+  height: 200px;
+  width: 200px;
+  border-radius: 200px;
+  background-image: url("../img/monsters/pink_demon/head.png");
+  background-size: 200px;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  margin-bottom: -70px;
+  transform-origin: center 150px;
+  animation-name: pulse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  z-index: 3;
+  position: relative; }
+
+.person-torso {
+  width: 200px;
+  height: 200px;
+  background-image: url("../img/monsters/pink_demon/torso.png");
+  background-size: 200px auto;
+  margin: 0 auto;
+  background-repeat: no-repeat;
+  z-index: 2;
+  position: relative; }
+
+.person-leg-left, .person-leg-right {
+  height: 250px;
+  width: 125px;
+  background-size: 125px auto;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 255px;
+  transform-origin: center 25px;
+  z-index: 0;
+  animation: dance 1 2s linear; }
+
+.person-leg-left {
+  background-image: url("../img/monsters/pink_demon/leg_left.png");
+  left: 206.25px; }
+
+.person-leg-right {
+  background-image: url("../img/monsters/pink_demon/leg_right.png");
+  left: 268.75px; }
+
+.person-arm-left, .person-arm-right {
+  height: 200px;
+  width: 100px;
+  background-size: 100px auto;
+  position: absolute;
+  top: 160px;
+  z-index: 4;
+  transform-origin: center 40px; }
+
+.person-arm-left {
+  background-image: url("../img/monsters/pink_demon/arm_left.png");
+  left: 166.66667px; }
+
+.person-arm-right {
+  background-image: url("../img/monsters/pink_demon/arm_right.png");
+  left: 333.33333px; }
+
+.dance-mosh .person-arm-right, .dance-mosh .person-arm-left {
+  animation: armwave 1s infinite; }
+.dance-mosh .person-leg-left {
+  animation: legjigleft 1s infinite; }
+.dance-mosh .person-leg-right {
+  animation: legjigright 1s infinite;
+  animation-delay: .5s; }
+
+.raisearms .person-arm-right, .raisearms .person-arm-left {
+  animation: armup 5s 1; }
+
+/*.dance {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-animation: dance 1 2s linear;
+  -moz-animation: dance 1 2s linear;
+  animation: dance 1 2s linear;
+}
+.pulse {
+  -webkit-animation: pulse infinite alternate linear 0.5s;
+  -moz-animation: pulse infinite alternate linear 0.5s;
+  animation: pulse infinite alternate linear 0.5s;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.pulse-slow {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-animation: pulseSlow infinite alternate 1s ease-in-out;
+  -moz-animation: pulseSlow infinite alternate 1s ease-in-out;
+  animation: pulseSlow infinite alternate 1s ease-in-out;
+}
+.jump-bounce {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-animation: jumpBounce 1 1.5s ease-in;
+  -moz-animation: jumpBounce 1 1.5s ease-in;
+  -ms-animation: jumpBounce 1 1.5s ease-in;
+  -o-animation: jumpBounce 1 1.5s ease-in;
+  animation: jumpBounce 1 1.5s ease-in;
+}
+.jamp {
+  opacity: 1 !important;
+  visibility: visible !important;
+  -webkit-animation: jamp 1s linear;
+  -moz-animation: jamp 1s linear;
+  animation: jamp 1s linear;
+}*/
+.m-skeleton.person-head {
+  background-image: url('../img/monsters/skeleton/head.png'); }
+.m-skeleton.person-torso {
+  background-image: url('../img/monsters/skeleton/torso.png'); }
+.m-skeleton.person-arm-right {
+  background-image: url('../img/monsters/skeleton/arm_right.png'); }
+.m-skeleton.person-arm-left {
+  background-image: url('../img/monsters/skeleton/arm_left.png'); }
+.m-skeleton.person-leg-right {
+  background-image: url('../img/monsters/skeleton/leg_right.png'); }
+.m-skeleton.person-leg-left {
+  background-image: url('../img/monsters/skeleton/leg_left.png'); }
+
+.m-fuzzy_pink.person-head {
+  background-image: url('../img/monsters/fuzzy_pink/head.png'); }
+.m-fuzzy_pink.person-torso {
+  background-image: url('../img/monsters/fuzzy_pink/torso.png'); }
+.m-fuzzy_pink.person-arm-right {
+  background-image: url('../img/monsters/fuzzy_pink/arm_right.png'); }
+.m-fuzzy_pink.person-arm-left {
+  background-image: url('../img/monsters/fuzzy_pink/arm_left.png'); }
+.m-fuzzy_pink.person-leg-right {
+  background-image: url('../img/monsters/fuzzy_pink/leg_right.png'); }
+.m-fuzzy_pink.person-leg-left {
+  background-image: url('../img/monsters/fuzzy_pink/leg_left.png'); }
+
+.m-purple_hairy.person-head {
+  background-image: url('../img/monsters/purple_hairy/head.png'); }
+.m-purple_hairy.person-torso {
+  background-image: url('../img/monsters/purple_hairy/torso.png'); }
+.m-purple_hairy.person-arm-right {
+  background-image: url('../img/monsters/purple_hairy/arm_right.png'); }
+.m-purple_hairy.person-arm-left {
+  background-image: url('../img/monsters/purple_hairy/arm_left.png'); }
+.m-purple_hairy.person-leg-right {
+  background-image: url('../img/monsters/purple_hairy/leg_right.png'); }
+.m-purple_hairy.person-leg-left {
+  background-image: url('../img/monsters/purple_hairy/leg_left.png'); }
+
+.m-swamp.person-head {
+  background-image: url('../img/monsters/swamp/head.png'); }
+.m-swamp.person-torso {
+  background-image: url('../img/monsters/swamp/torso.png'); }
+.m-swamp.person-arm-right {
+  background-image: url('../img/monsters/swamp/arm_right.png'); }
+.m-swamp.person-arm-left {
+  background-image: url('../img/monsters/swamp/arm_left.png'); }
+.m-swamp.person-leg-right {
+  background-image: url('../img/monsters/swamp/leg_right.png'); }
+.m-swamp.person-leg-left {
+  background-image: url('../img/monsters/swamp/leg_left.png'); }
+
+.m-freddy.person-head {
+  background-image: url('../img/monsters/freddy/head.png'); }
+.m-freddy.person-torso {
+  background-image: url('../img/monsters/freddy/torso.png'); }
+.m-freddy.person-arm-right {
+  background-image: url('../img/monsters/freddy/arm_right.png'); }
+.m-freddy.person-arm-left {
+  background-image: url('../img/monsters/freddy/arm_left.png'); }
+.m-freddy.person-leg-right {
+  background-image: url('../img/monsters/freddy/leg_right.png'); }
+.m-freddy.person-leg-left {
+  background-image: url('../img/monsters/freddy/leg_left.png'); }
+
+.m-pink_demon.person-head {
+  background-image: url('../img/monsters/pink_demon/head.png'); }
+.m-pink_demon.person-torso {
+  background-image: url('../img/monsters/pink_demon/torso.png'); }
+.m-pink_demon.person-arm-right {
+  background-image: url('../img/monsters/pink_demon/arm_right.png'); }
+.m-pink_demon.person-arm-left {
+  background-image: url('../img/monsters/pink_demon/arm_left.png'); }
+.m-pink_demon.person-leg-right {
+  background-image: url('../img/monsters/pink_demon/leg_right.png'); }
+.m-pink_demon.person-leg-left {
+  background-image: url('../img/monsters/pink_demon/leg_left.png'); }
+
+.m-bunbun.person-head {
+  background-image: url('../img/monsters/bunbun/head.png'); }
+.m-bunbun.person-torso {
+  background-image: url('../img/monsters/bunbun/torso.png'); }
+.m-bunbun.person-arm-right {
+  background-image: url('../img/monsters/bunbun/arm_right.png'); }
+.m-bunbun.person-arm-left {
+  background-image: url('../img/monsters/bunbun/arm_left.png'); }
+.m-bunbun.person-leg-right {
+  background-image: url('../img/monsters/bunbun/leg_right.png'); }
+.m-bunbun.person-leg-left {
+  background-image: url('../img/monsters/bunbun/leg_left.png'); }
+
+.m-red_guy.person-head {
+  background-image: url('../img/monsters/red_guy/head.png'); }
+.m-red_guy.person-torso {
+  background-image: url('../img/monsters/red_guy/torso.png'); }
+.m-red_guy.person-arm-right {
+  background-image: url('../img/monsters/red_guy/arm_right.png'); }
+.m-red_guy.person-arm-left {
+  background-image: url('../img/monsters/red_guy/arm_left.png'); }
+.m-red_guy.person-leg-right {
+  background-image: url('../img/monsters/red_guy/leg_right.png'); }
+.m-red_guy.person-leg-left {
+  background-image: url('../img/monsters/red_guy/leg_left.png'); }
+
+.m-spider_woman.person-head {
+  background-image: url('../img/monsters/spider_woman/head.png'); }
+.m-spider_woman.person-torso {
+  background-image: url('../img/monsters/spider_woman/torso.png'); }
+.m-spider_woman.person-arm-right {
+  background-image: url('../img/monsters/spider_woman/arm_right.png'); }
+.m-spider_woman.person-arm-left {
+  background-image: url('../img/monsters/spider_woman/arm_left.png'); }
+.m-spider_woman.person-leg-right {
+  background-image: url('../img/monsters/spider_woman/leg_right.png'); }
+.m-spider_woman.person-leg-left {
+  background-image: url('../img/monsters/spider_woman/leg_left.png'); }
+
+.m-threeeyedcat.person-head {
+  background-image: url('../img/monsters/threeeyedcat/head.png'); }
+.m-threeeyedcat.person-torso {
+  background-image: url('../img/monsters/threeeyedcat/torso.png'); }
+.m-threeeyedcat.person-arm-right {
+  background-image: url('../img/monsters/threeeyedcat/arm_right.png'); }
+.m-threeeyedcat.person-arm-left {
+  background-image: url('../img/monsters/threeeyedcat/arm_left.png'); }
+.m-threeeyedcat.person-leg-right {
+  background-image: url('../img/monsters/threeeyedcat/leg_right.png'); }
+.m-threeeyedcat.person-leg-left {
+  background-image: url('../img/monsters/threeeyedcat/leg_left.png'); }
+
+@font-face {
+  font-family: BrandonTextBold;
+  src: url("../fonts/brandon_text_bold/BrandonTextBold.otf") format("opentype"); }
+@font-face {
+  font-family: Shlop;
+  src: url("../fonts/shlop.ttf") format("truetype"); }
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.1) rotate(-15deg);
+    opacity: 0;
+    color: #FC3317; }
+  25% {
+    transform: scale(1.2) rotate(-15deg);
+    opacity: 1; }
+  50% {
+    transform: scale(1) rotate(-15deg);
+    color: #FC3317; }
+  100% {
+    color: white; } }
+@keyframes mymove {
+  50% {
+    transform: rotate(45deg); } }
+.App {
+  background: white;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, white 0%, #ededed 49%, #f3f3f3 84%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, white 0%, #ededed 49%, #f3f3f3 84%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, white 0%, #ededed 49%, #f3f3f3 84%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=0 );
+  text-align: center; }
+
+.App-header {
+  align-items: center;
+  background-color: #000000;
+  display: flex;
+  margin: 0 auto;
+  opacity: 0.8;
+  width: 100%;
+  -webkit-box-shadow: 0px 23px 39px -8px #7d7d7d;
+  -moz-box-shadow: 0px 23px 39px -8px #7d7d7d;
+  box-shadow: 0px 23px 39px -8px #7d7d7d;
+  padding-left: 1rem;
+  margin-bottom: 7rem; }
+
+h1 {
+  -webkit-transform: rotate(-10deg);
+  color: #fff;
+  font-family: 'Shlop', sans-serif;
+  font-size: 8rem;
+  letter-spacing: 1rem;
+  padding: 25px;
+  text-shadow: 2px 5px 7px rgba(0, 255, 125, 0.76);
+  animation: bounceIn 4s; }
+
+.App-intro {
+  color: white;
+  font-size: 2rem;
+  margin-top: 10em;
+  font-family: Futura, sans-serif;
+  text-transform: uppercase; }
+
+.App-intro:hover {
+  background-color: #FA54E8; }
+
+.fa {
+  color: white; }
+
+.fa:hover {
+  color: #FA54E8;
+  padding-top: 3rem; }
+
+.button {
+  border: 3px solid black;
+  height: 5em;
+  width: 5em; }
+
+body {
+  margin: 0;
+  padding: 0; }
+
+.monster-container {
+  margin: 45 auto;
+  padding: 10rem; }
+
+.monster-stage {
+  -moz-box-shadow: 13px 19px 23px #333333;
+  -webkit-box-shadow: 13px 19px 23px #333333;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: center;
+  border: 8px solid #FA54E8;
+  box-shadow: 13px 19px 23px #333333;
+  height: 800px;
+  position: relative; }
+
+p {
+  font-family: 'Futura', sans-serif;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+  text-shadow: 0px 1px -1px #333333; }
+
+p:hover {
+  color: #FA54E8; }
+
+.selectBox-arrow {
+  font-size: 5rem; }
+
+.selectBox-arrow:hover {
+  color: #FA54E8; }
+
+.main-row {
+  display: flex;
+  padding: 3em;
+  margin-top: -7em;
+  background-color: #f5faff; }
+  .main-row .monster-stage {
+    margin-top: 8em;
+    width: 73%; }
+  .main-row .selectBox-container {
+    flex-shrink: 1;
+    margin-left: 3em;
+    width: 33%; }
+
+label {
+  -moz-border-radius: 20px;
+  -moz-box-shadow: 13px 19px 23px #333333;
+  -webkit-border-radius: 20px;
+  -webkit-box-shadow: 13px 19px 23px #333333;
+  background-color: #FECA1A;
+  background-position: center center;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 13px 19px 23px #333333;
+  clear: both;
+  display: block;
+  font-family: 'Futura', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  margin-bottom: 2em;
+  padding: 20px; }
+
+select {
+  border: 3px solid black;
+  font-family: BrandonTextBold, sans-serif;
+  font-size: 15px;
+  width: 100%; }
+
+.button {
+  -moz-border-radius: 9;
+  -moz-box-shadow: 13px 19px 23px #333333;
+  -webkit-border-radius: 9;
+  -webkit-box-shadow: 13px 19px 23px #333333;
+  background-color: #FA54E8;
+  border-radius: 9px;
+  box-shadow: 13px 19px 23px #333333;
+  color: black;
+  float: right;
+  font-family: 'BrandonTextBold', 'sans-serif';
+  font-size: 20px;
+  height: 2em;
+  letter-spacing: 3px;
+  margin-top: 5px;
+  padding: 15px 20px 10px 20px;
+  text-decoration: none;
+  width: 10em; }
+
+.button:hover {
+  background: white;
+  color: black;
+  text-decoration: none; }
+
+  /*<div className="BackgroundSearch">
+
+			<div className="BackgroundSearch-input">
+				<input type="text" onChange={this.handleSearchChange}/>
+				<button type="button" onClick={this.handleClick}>
+				Search
+				</button>
+			</div>
+
+			<div className="BackgroundSearch-results">
+			{resultOutput}
+			</div>
+			
+		</div>*/
+.select-bkgrd-title {
+  font-family: Futura, sans-serif;
+  font-size: 2em;
+  letter-spacing: 3px; }
+
+.BackgroundSearch {
+  width: 100%; }
+
+.BackgroundSearch-input, button, input {
+  font-family: BrandonTextBold, sans-serif;
+  font-size: 27px;
+  padding-left: 8px;
+  padding-right: 8px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px; }
+
+.BackgroundSearch-results {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 200px;
+  overflow: auto; }
+  .BackgroundSearch-results .BackgroundSearch-result {
+    width: 48%;
+    margin: 1%;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box; }
+    .BackgroundSearch-results .BackgroundSearch-result-active {
+      border: 3px solid red; }
+    .BackgroundSearch-results .BackgroundSearch-result:before {
+      content: " ";
+      display: block;
+      padding-top: 100%; }
+  .BackgroundSearch-results img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    min-height: 100%; }
+
+.Confirm-btn {
+  display: none;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #FA54E8; }
+
+.BackgroundSearch-active {
+  background-color: rgba(36, 30, 20, 0.51);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  transform: translate(-50%, -50%);
+  padding: 50px;
+  z-index: 20; }
+  .BackgroundSearch-active .select-bkgrd-title {
+    color: white; }
+  .BackgroundSearch-active .Confirm-btn {
+    display: inline; }
+
+.canvas-container {
+  border: 5px solid black;
+  -webkit-box-shadow: -1px 21px 15px -5px #171617;
+  -moz-box-shadow: -1px 21px 15px -5px #171617;
+  box-shadow: -1px 21px 15px -5px #171617;
+  background-color: #f0e9e6;
+  border-radius: 20px 20px 20px 20px;
+  -moz-border-radius: 20px 20px 20px 20px;
+  -webkit-border-radius: 20px 20px 20px 20px; }
+
+.textbox-container {
+  height: 3em;
+  width: 2em;
+  background-color: yellow; }
+
+/*# sourceMappingURL=index.css.map */
