@@ -2,17 +2,32 @@ import React, { Component } from 'react';
 import MonsterSelect from './MonsterSelect.jsx';
 import '../css/index.css';
 import fetch from 'node-fetch';
-import television from '../img/Television.png';
+
 import head from '../img/monsters/pink_demon/head.png';
 import {Canvas, StaticCanvas,Circle, Rect, Image, Path, Text} from 'react-fabricjs';
-import StateImage from './StateImage.jsx';
+import ImagePlus from './ImagePlus.jsx';
+import TextPlus from "./TextPlus.jsx";
 import BackgroundSearch from './BackgroundSearch.jsx';
 import saveAs from 'save-as';
 
 
 
 
-
+var headHeight=800;
+var headWidth=800;
+var torsoHeight=800;
+var torsoWidth=800;
+var armWidth=400;
+var armHeight=800;
+var legWidth=400;
+var legHeight=800;
+var headBottomToJaw = headHeight * .25; // Also the Neck pivot
+var torsoSideToShoulder = torsoWidth * .25;
+var torsoTopToShouler = torsoHeight * .25;
+var torsoBottomToHip = torsoHeight * .25;
+var torsoSideToHip = torsoWidth * .25;
+var legTopToHip = legHeight * .10;    // Also the Leg pivot
+var armTopToShoulder = armHeight * .10; // Also the Shoulder pivot
  
 var bodyparts = ["head", "torso", "arm_right", "arm_left", "leg_right", "leg_left"];
 
@@ -69,13 +84,16 @@ var monsters = [
 	{
 		title:"Three-Eyed Cat",
 		index:"threeeyedcat"
-	}
-	
-
-
-
-	
+	},
+	{
+		title:"Witch",
+		index:"witch"
+	}	
 ];
+
+
+
+
 //preloads all of the monster body part images
 /*
 {
@@ -114,24 +132,28 @@ function getImageFromIndex(index, bodypart){
 var giphyAPIKEY = "dc6zaTOxFJmzC";
 var giphyAPIURL = "http://api.giphy.com/v1/gifs/random";
 
-   
+
 
 
 class App extends Component {
 	constructor(){
 		super(...arguments);
 
-	
+		var defaultMonster= "pink_demon";
 		this.state={
-			personHead:"",
-			personTorso:"",
-			personArmRight:"",
-			personArmLeft:"",
-			personLegRight:"",
-			personLegLeft:"", 
+			personHead:defaultMonster,
+			personTorso:defaultMonster,
+			personArmRight:defaultMonster,
+			personArmLeft:defaultMonster,
+			personLegRight:defaultMonster,
+			personLegLeft:defaultMonster, 
 			backgroundURL:"",
-			textblock:""
+			textblock:"",
+			canvasWidth: 800,
+			canvasHeight: 600,
+			bodyscale: .25
 		};
+
 		this.handleHeadChange = this.handleHeadChange.bind(this);
 		this.handleTorsoChange = this.handleTorsoChange.bind(this);
 		this.handleRightArmChange = this.handleRightArmChange.bind(this);
@@ -141,12 +163,44 @@ class App extends Component {
 		this.handleButtonChange = this.handleButtonChange.bind(this);
 		this.handleImageClick = this.handleImageClick.bind(this);
 		this.handleTextBlockChange = this.handleTextBlockChange.bind(this);
-		
+		this.handleButtonCLick = this.handleButtonCLick.bind(this);
 	}
 	componentDidMount(){
+		//this.setCanvasDimensions();
 
 		/*this.getGiphy("monster");*/
 	}
+	
+	 //{setCanvasDimensions() {
+		// Find Broswer Dimensions
+		//var browserWidth = window.innerWidth
+		//|| document.documentElement.clientWidth
+		//|| document.body.clientWidth;
+//var browserHeight = window.innerHeight
+		//|| document.documentElement.clientHeight
+		//|| document.body.clientHeight;
+
+
+		//console.log(["RESIZED", browserWidth, browserHeight]);
+
+		// Mobile
+		//var canvasWidth = 400;
+		//var canvasHeight = 400;
+		//var bodyscale=.2;
+
+		// Small Desktop
+		//if (browserWidth > 800) {
+			//canvasWidth = 800;
+			//canvasHeight = 800;
+			//bodyscale = .25;
+		//}
+		//this.setState({
+			//canvasHeight: canvasHeight,
+			//canvasWidth: canvasWidth,
+			//bodyscale: bodyscale
+		//});
+
+	//}
 
 	getBodyPartState(bodypart, propName){
 		if(bodypartProps[bodypart]&& bodypartProps[bodypart][propName]){
@@ -239,6 +293,17 @@ class App extends Component {
 		});
 	}
 
+	handleButtonCLick(e){
+		var canvas = document.getElementById("c");
+		//var img= canvas.toDataURL("image/png");
+		//document.write('<img src="'+img+'"/>');
+
+		var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); //Convert image to 'octet-stream' (Just a download, really)
+		window.location.href = image;
+
+   
+
+	}
 
 	/*handleBackgroundChange(e) {
 		this.getBackground(q);
@@ -316,83 +381,103 @@ class App extends Component {
 			</div>
 		</div>
 
-		//fabric.js starts here//
+		//Fabric.js starts here//
 	}
 
 	renderCanvas(){
 
-		var images=[];
-		var bodyparts={
-			torso:{
-				index: 5,
-				left:0,
-				top:0,
+		var torsoTop = (headHeight - headBottomToJaw),
+			armTop = torsoTop - armTopToShoulder + torsoTopToShouler,
+			armSide = (-torsoWidth / 2 + torsoSideToShoulder),
+			legTop = (torsoTop + torsoHeight - legTopToHip - torsoBottomToHip),
+			images=[];
+
+		var bodyparts=[
+
+			{
+				partName: "torso",	
+				index: 9,
+				left: this.state.canvasWidth / 2,
+				top: torsoTop * this.state.bodyscale,
+				originX: "center",
 				monsterIndex: this.state.personTorso
 			},
-
-			head:{
-				index: 10,
-				left:0,
+			{
+				partName: "head",	
+				index: 12,
+				left:this.state.canvasWidth / 2,
 				top:0,
+				originX:"center",
+				originY:"top",
 				monsterIndex: this.state.personHead
 			},
-			arm_right:{
-				index: 6,
-				left:0,
-				top:0,
+
+
+			
+			{
+				partName: "arm_right",	
+				index: 11,
+				left:this.state.canvasWidth / 2 - armSide * this.state.bodyscale,
+				top:armTop * this.state.bodyscale,
+				originX: "center",
 				monsterIndex: this.state.personArmRight
 
 			},
-			arm_left:{
-				index: 6,
-				left:0,
-				top:0,
+			{
+				partName: "arm_left",	
+				index: 10,
+				left:this.state.canvasWidth / 2 + armSide * this.state.bodyscale,
+				top:armTop * this.state.bodyscale,
+				originX: "center",
 				monsterIndex: this.state.personArmLeft
 			},
-			leg_right:{
-				index: 4,
-				left:0,
-				top:0,
+			{
+				partName: "leg_right",	
+				index: 8,
+				left:this.state.canvasWidth / 2 + (legWidth / 4) * this.state.bodyscale,
+				top:legTop * this.state.bodyscale,
+				originX: "center",
 				monsterIndex: this.state.personLegRight
 			},
-			leg_left:{
-				index: 4,
-				left:0,
-				top:0,
+			{
+				partName: "leg_left",	
+				index: 7,
+				left:this.state.canvasWidth / 2 - (legWidth / 4) * this.state.bodyscale,
+				top:legTop * this.state.bodyscale,
+				originX: "center",
 				monsterIndex: this.state.personLegLeft
-			}
-		};
+			},
+		];
 		//checking props to see if they have already been set. if so,  replace the value with the stored value.
 
-		for(var bodypart in bodyparts){
-			var {monsterIndex, ...props}=bodyparts[bodypart];
-			for (var i in bodypartProps[bodypart]) {
-				props[i] = bodypartProps[bodypart][i];
+		for(var j in bodyparts){
+			var {monsterIndex, partName, ...props}=bodyparts[j];
+			for (var i in bodypartProps[partName]) {
+				props[i] = bodypartProps[partName][i];
 			}
-			images.push(<StateImage
-				key={bodypart}
-				index={2}
-				scaleX={.25}
-				scaleY={.25}
-				onMovingWithProps={this.handleImageMove.bind(this, bodypart)}
-				onScalingWithProps={this.handleImageScale.bind(this, bodypart)}
-				onRotatingWithProps={this.handleImageRotate.bind(this, bodypart)}
-				src={getImageFromIndex(monsterIndex, bodypart)}
+			images.push(<ImagePlus
+				name={partName}
+				key={partName}
+				scaleX={this.state.bodyscale}
+				scaleY={this.state.bodyscale}
+				onMovingWithProps={this.handleImageMove.bind(this, partName)}
+				onScalingWithProps={this.handleImageScale.bind(this, partName)}
+				onRotatingWithProps={this.handleImageRotate.bind(this, partName)}
+				src={getImageFromIndex(monsterIndex, partName)}
 				{...props}
 			/>);
 		}
 
-		var canvasWidth = 800,
-			canvasHeight = 1000;
-			
+		
+		console.log(["CREATING CANVAS", this.state.canvasWidth, this.state.canvasHeight]);
 		return (
 
 			<div> 
 
 				<Canvas 
 					ref="canvas"
-					width={canvasWidth}
-					height={canvasHeight}
+					width={this.state.canvasWidth}
+					height={this.state.canvasHeight}
 					fill="blue"
 					preserveObjectStacking={true}
 					
@@ -403,21 +488,24 @@ class App extends Component {
 					{images}
 
 
-					<Text
-						index={10}
+					<TextPlus
+						index={15}
 						text={this.state.textblock}
-						left={300}
-						top={300}
+						top={this.state.canvasHeight - 80}
+						left={this.state.canvasWidth / 2}
+						originX="center"
 						shadow="rgba(0,0,0,0.3) 5px 5px 5px"
 						stroke="#00ff00"
 						strokeWidth={3}
 						fontStyle="italic"
 						fontFamily="Futura"
+						textAlign="center"
 					/>
-					<StateImage 
+					<ImagePlus 
 						index={1}
 						src={this.state.backgroundURL}
-                		fitY={canvasHeight}
+                		fitY={this.state.canvasHeight}
+                		isBackground={true}
 					/>
 				
 				</Canvas>
@@ -434,15 +522,20 @@ class App extends Component {
 			<div className="App">
 
 				<div className="App-header">
-					
-					<h1>Monster Maker</h1>
+					<div className="Header-title">
+						<h1>Monster Maker</h1>
+
+					</div>
 					<div className="Header-Nav">
 		
 						<div className="App-intro">
+						<Image src = "../img/frankenstein_icon.png"/>
 							Select Your Monster Parts
+
 						</div>
 						<i className="fa fa-arrow-down selectBox-arrow" aria-hidden="true"></i>
 					</div>
+
 
 
 				</div>
@@ -453,7 +546,19 @@ class App extends Component {
 							{stageContent}
 							
 						</div>
-						
+						<BackgroundSearch 
+							onImageClick={this.handleImageClick} 
+							currentBackgroundURL={this.state.backgroundURL} />
+						<p className="textInput-container">Add Some Text!	
+						<input type="text" placeholder="Type Here..." value={this.state.textblock} onChange={this.handleTextBlockChange}/>
+						</p>
+						<div className="Save-button">
+						<button type="type" onClick={this.handleButtonCLick}>
+
+						Save Your Creation
+						</button>
+						</div>	
+
 					</div>
 					<div className="selectBox-container">
 						
@@ -473,24 +578,30 @@ class App extends Component {
 						<MonsterSelect label="Left Leg" name="left-leg" value={this.state.personLegLeft} onChange={this.handleLeftLegChange} monsterOptions={monsters} />
 						
 
-						<BackgroundSearch 
-							onImageClick={this.handleImageClick} 
-							currentBackgroundURL={this.state.backgroundURL} />
-						<p className="textInput-container">Add Some Text!	
-						<input type="text" placeholder="Type Here..." value={this.state.textblock} onChange={this.handleTextBlockChange}/>
-						</p>
+						
 						{/*<BackgroundGiphySearch*/}
 
-	
+						
 					</div>
 
-				
+						
 					
 						
 				
 			
 				</div>
+				<footer>
+					<div className="footer-info">
+						<ul>
+							<li>Image results provided by Pixabay, Pexel, Giphy, and Google.</li>
+							<li>Icons by FontAwesome and FlatIcon.com.
+							</li>
+							<li>Copyright @2017 Tori Hutto.
+							</li>
+						</ul>
 
+					</div>
+				</footer>
 		</div>
 		);
 

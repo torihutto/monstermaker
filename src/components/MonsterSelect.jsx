@@ -1,8 +1,11 @@
 import React from 'react';
 
 class MonsterSelect extends React.Component {
-	constructor(){
+	constructor(props){
 		super(...arguments);
+		this.state = {
+			value: props.value
+		};
 
 		this.handleChange=this.handleChange.bind(this);
 	}
@@ -16,6 +19,7 @@ class MonsterSelect extends React.Component {
 		};
 	}
 	handleChange(e){
+		this.setState({value: e.target.value});
 		this.props.onChange(e);
 	}
 	render(){
@@ -26,7 +30,11 @@ class MonsterSelect extends React.Component {
 		}
 
 		return <label>{this.props.label}
-			<select onChange={this.handleChange} name={this.props.name}>
+			<select 
+				onChange={this.handleChange} 
+				name={this.props.name}
+				value={this.state.value}
+			>
 				{selectOptions}
 			</select>
 		</label>

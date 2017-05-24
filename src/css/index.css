@@ -1,5 +1,4 @@
 @import url("https://fontlibrary.org/face/glacial-indifference");
-@import url("https://fonts.googleapis.com/css?family=Pacifico");
 @import url("https://fonts.googleapis.com/css?family=Denk+One");
 @keyframes headwobble {
   0% {
@@ -332,38 +331,48 @@
 .m-threeeyedcat.person-leg-left {
   background-image: url('../img/monsters/threeeyedcat/leg_left.png'); }
 
+.m-witch.person-head {
+  background-image: url('../img/monsters/witch/head.png'); }
+.m-witch.person-torso {
+  background-image: url('../img/monsters/witch/torso.png'); }
+.m-witch.person-arm-right {
+  background-image: url('../img/monsters/witch/arm_right.png'); }
+.m-witch.person-arm-left {
+  background-image: url('../img/monsters/witch/arm_left.png'); }
+.m-witch.person-leg-right {
+  background-image: url('../img/monsters/witch/leg_right.png'); }
+.m-witch.person-leg-left {
+  background-image: url('../img/monsters/witch/leg_left.png'); }
+
 @font-face {
   font-family: BrandonTextBold;
   src: url("../fonts/brandon_text_bold/BrandonTextBold.otf") format("opentype"); }
 @font-face {
   font-family: Shlop;
   src: url("../fonts/shlop.ttf") format("truetype"); }
-@keyframes bounceIn {
+@keyframes titleIntro {
   0% {
-    transform: scale(0.1) rotate(-15deg);
+    transform: scale(0.7) rotate(20deg);
     opacity: 0;
-    color: #FC3317; }
+    color: #FB0018;
+    font-size: 3rem; }
   25% {
-    transform: scale(1.2) rotate(-15deg);
-    opacity: 1; }
+    opacity: 1;
+    transform: scale(1.5) rotate(-15deg);
+    font-size: 8rem; }
   50% {
-    transform: scale(1) rotate(-15deg);
-    color: #FC3317; }
+    color: #FC3317;
+    transform: scale(1) rotate(0);
+    font-size: 4rem;
+    opacity: 0; }
+  75% {
+    opacity: 1; }
   100% {
     color: white; } }
 @keyframes mymove {
   50% {
     transform: rotate(45deg); } }
 .App {
-  background: white;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, white 0%, #ededed 49%, #f3f3f3 84%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, white 0%, #ededed 49%, #f3f3f3 84%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, white 0%, #ededed 49%, #f3f3f3 84%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f3f3f3',GradientType=0 );
   text-align: center; }
 
 .App-header {
@@ -372,6 +381,8 @@
   display: flex;
   margin: 0 auto;
   opacity: 0.8;
+  position: relative;
+  z-index: 5;
   width: 100%;
   -webkit-box-shadow: 0px 23px 39px -8px #7d7d7d;
   -moz-box-shadow: 0px 23px 39px -8px #7d7d7d;
@@ -379,20 +390,25 @@
   padding-left: 1rem;
   margin-bottom: 7rem; }
 
-h1 {
-  -webkit-transform: rotate(-10deg);
-  color: #fff;
-  font-family: 'Shlop', sans-serif;
-  font-size: 8rem;
-  letter-spacing: 1rem;
-  padding: 25px;
-  text-shadow: 2px 5px 7px rgba(0, 255, 125, 0.76);
-  animation: bounceIn 4s; }
+.Header-title {
+  flex-grow: 2;
+  padding: 0; }
+  .Header-title h1 {
+    color: #fff;
+    font-family: 'Shlop', sans-serif;
+    font-size: 7rem;
+    letter-spacing: 1rem;
+    white-space: nowrap;
+    text-shadow: 2px 5px 7px rgba(0, 255, 125, 0.76);
+    animation: titleIntro 5s; }
+
+.Header-Nav {
+  width: 33%; }
 
 .App-intro {
   color: white;
   font-size: 2rem;
-  margin-top: 10em;
+  margin-top: 0;
   font-family: Futura, sans-serif;
   text-transform: uppercase; }
 
@@ -400,7 +416,8 @@ h1 {
   background-color: #FA54E8; }
 
 .fa {
-  color: white; }
+  color: white;
+  font-size: 4em; }
 
 .fa:hover {
   color: #FA54E8;
@@ -429,6 +446,13 @@ body {
   box-shadow: 13px 19px 23px #333333;
   height: 800px;
   position: relative; }
+
+.Save-button button {
+  padding: 1.5rem;
+  background-color: #FECA1A;
+  margin-top: 2rem;
+  border-radius: 20px;
+  box-shadow: 13px 19px 23px #333333; }
 
 p {
   font-family: 'Futura', sans-serif;
@@ -483,6 +507,7 @@ select {
   border: 3px solid black;
   font-family: BrandonTextBold, sans-serif;
   font-size: 15px;
+  margin: 30px 0;
   width: 100%; }
 
 .button {
@@ -533,12 +558,20 @@ select {
 
 .BackgroundSearch-input, button, input {
   font-family: BrandonTextBold, sans-serif;
-  font-size: 27px;
+  font-size: 32px;
   padding-left: 8px;
   padding-right: 8px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  border-radius: 5px; }
+  border-radius: 5px;
+  padding: 15px;
+  border: 2px solid #ccc;
+  background-color: #FECA1A;
+  border-radius: 20px;
+  box-shadow: 13px 19px 23px #333333; }
+
+.BackgroundSearch input {
+  background-color: white; }
 
 .BackgroundSearch-results {
   align-items: center;
@@ -547,13 +580,13 @@ select {
   max-height: 200px;
   overflow: auto; }
   .BackgroundSearch-results .BackgroundSearch-result {
-    width: 48%;
+    width: 18%;
     margin: 1%;
     position: relative;
     overflow: hidden;
     box-sizing: border-box; }
     .BackgroundSearch-results .BackgroundSearch-result-active {
-      border: 3px solid red; }
+      border: 5px solid yellow; }
     .BackgroundSearch-results .BackgroundSearch-result:before {
       content: " ";
       display: block;
@@ -586,6 +619,13 @@ select {
   .BackgroundSearch-active .Confirm-btn {
     display: inline; }
 
+.BackgroundSearch .fa {
+  color: black;
+  font-size: 4em; }
+
+.BackgroundSearch .fa:hover {
+  color: #FA54E8; }
+
 .canvas-container {
   border: 5px solid black;
   -webkit-box-shadow: -1px 21px 15px -5px #171617;
@@ -600,5 +640,25 @@ select {
   height: 3em;
   width: 2em;
   background-color: yellow; }
+
+.textInput-container input {
+  background-color: #fff; }
+
+footer {
+  height: 64px;
+  background: #eee;
+  padding: 2rem;
+  padding-bottom: 2rem;
+  background-image: url("../img/frankenstein_icon.png");
+  background-repeat: none; }
+
+.footer-info li {
+  text-decoration: none;
+  font-family: 'Futura', sans-serif;
+  list-style-type: none; }
+
+.footer-info ul {
+  padding-top: 2rem;
+  margin: 0; }
 
 /*# sourceMappingURL=index.css.map */

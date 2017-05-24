@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 
 
 var giphyAPIKEY = "dc6zaTOxFJmzC";
-var giphyAPIURL = "http://api.giphy.com/v1/gifs/random";
+var giphyAPIURL = "http://api.giphy.com/v1/stickers/search";
 
 var googleAPIKEY = "AIzaSyA8kR3wW_GsbyQHhIdcyapDoXa3XfvWMl8";
 var googleAPIURL = "https://ajax.googleapis.com/ajax/services/search/images";
@@ -26,7 +26,7 @@ class BackgroundSearch extends React.Component {
 			search:"",
 			images:[],
 			active:false,
-			searchengine:""
+			searchengine:"pixabay"
 		};
 
 		this.handleSearchChange=this.handleSearchChange.bind(this);
@@ -52,7 +52,7 @@ class BackgroundSearch extends React.Component {
 
 	}
 	handleSearchEngineChange(e){
-		console.log(["engine changed", this.state.value]);
+		console.log(["engine changed", e.target.value]);
 		this.setState({searchengine:e.target.value});
 	}
 
@@ -72,7 +72,7 @@ class BackgroundSearch extends React.Component {
 		//this.getPexelImageSearch(this.state.search);
 		//this.getGoogleImageSearch(this.state.search);
 		
-		this.getPixabayImages(this.state.search);
+		//this.getPixabayImages(this.state.search);
 		this.setState({
 			active: true
 		});
@@ -92,41 +92,40 @@ class BackgroundSearch extends React.Component {
 	}
 
 	//BACKGROUND IMAGE SEARCH QUERIES////////////
-
+		
 	getGoogleImageSearch(q){
 
 		var url = googleAPIURL;
 		url += "?key=" + googleAPIKEY;
 		url += "&cx=" + googleSearchEngine;
 		url += "&q=" + encodeURI(q);
-		//url += "&imgType=photo";//
-		url += "&searchType=image";
-		/*url += "&imgSize=xlarge";*/
-		url += "&imgsz=icon"; 
-		console.log(url);
-		fetch(url, {compress: false})
+		url += "&imgType=photo";
+		url += "&lowRange=20"; 
+		
+		fetch(url)
 			.then((response)=>{
 				return response.json();
 			})
 			.then((json)=>{
-				console.log(json);
-				var imageList = [];
-				for(var i=0; i < json.items.length; i++){
+				var imageList=[];
+				for(var i=0; i < json.results.length; i++){
 					imageList.push({
-						regular: json.items[i].link, 
-						thumb: json.items[i].link
+						regular: json.results[i].urls.regular, 
+						thumb: json.results[i].urls.thumb
+					});
 
-						});
 				}
 				this.setState({
 					images:imageList
 				})
 			})
-			.catch((err) => {
+			.catch((err)=>{
 				console.error(err);
 			});
-			
+
 	}
+				
+		
 	getPexelImageSearch(query){
 		var url= pexelAPIURL;
 
@@ -187,10 +186,10 @@ class BackgroundSearch extends React.Component {
 				console.error(err);
 			});
 	}
-
+//http://api.giphy.com/v1/stickers/search?q=cat&api_key=dc6zaTOxFJmzC 
 	getGiphy(searchterm){
 	  var url = giphyAPIURL;
-	  url += "?tag=" + encodeURI(searchterm);
+	  url += "?q=" + encodeURI(searchterm);
 	  url += "&api_key=" + giphyAPIKEY;
 	  fetch(url)
 		.then(function (response){
@@ -198,8 +197,17 @@ class BackgroundSearch extends React.Component {
 	  })
 	  .then((json)=>{
 		console.log(json.data);
-		this.setState({backgroundURL:json.data.image_url});
-	  })
+		var imageList=[];
+		for(var i=0; i < json.data.length; i++){
+			imageList.push({
+				regular: json.data[i].images.original.url,
+				thumb: json.data[i].images.fixed_height.url
+			})
+		} 
+		this.setState({
+			images:imageList
+		});
+	  });
   }
 
 	render(){
@@ -227,20 +235,22 @@ class BackgroundSearch extends React.Component {
 		}
 
 		return <form className={backgroundClass} onSubmit={this.handleSubmit}>
-			<p className= "select-bkgrd-title">Search For a Background! </p>
+			<p className= "select-bkgrd-title">Search For a Background!
+			</p>
+			<i className="fa fa-arrow-down selectBox-arrow" aria-hidden="true"></i>
+			
 		
 
 			<div className="BackgroundSearch-input">
 				<input type="text" placeholder="Search here..." onChange={this.handleSearchChange}/>
 				<select onChange={this.handleSearchEngineChange}
-				value="">
+				value={this.state.searchengine}>
   					<option value="pexel">Pexel</option>
 			    	<option value="pixabay">Pixabay</option>
 			    	<option value="google_image">Google Images</option>
 			    	<option value="giphy">Giphy</option>
 			   </select>
 			
-
 				<button type="submit">
 				Search
 
